@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/profile', function () {
     return view('profile');
-})->name('profile');;
+})->name('profile')->middleware('auth');
 
 Auth::routes();
 
@@ -40,16 +41,30 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');    
     Route::post('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
     Route::post('/article/destroy/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
+
+    // Users
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+
+    // Permissions Users
+    Route::put('/users/{user}/permissions', [UserController::class, 'update'])->name('permissions.update');
+    Route::post('/permissions/store', [UserController::class, 'storePermission'])->name('permissions.store');
+
+    // Role Users
+    Route::post('/role/store', [UserController::class, 'storeRole'])->name('role.store');
+    Route::put('/users/{user}/role', [UserController::class, 'updateRole'])->name('role.update');
 });
 
 
+// Article
 Route::get('/article', [ArticleController::class, 'index'])->name('article.index')->middleware('auth');
+Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store'); 
 Route::get('/article/show/{id}',  [ArticleController::class, 'show'])->name('article.show');
 
 // Create Data
 Route::group(['middleware' => ['permission:create articles']], function () {
     Route::get('/article/create', [ArticleController::class, 'create'])->name('create');
-    Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store'); 
 });
 
 // Edit Data
@@ -63,17 +78,4 @@ Route::delete('/article/destroy/{id}', [ArticleController::class, 'destroy'])->n
 
 
 
-
-
-Route::get('create-article', function() {
-    dd('ini khusus create');
-})->middleware('can:create articles');
-
-Route::get('edit-article', function() {
-    dd('ini khusus edit');
-})->middleware('can:edit articles');
-
-Route::get('delete-article', function() {
-    dd('ini khusus delete');
-})->middleware('can:delete articles');
 

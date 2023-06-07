@@ -4,7 +4,7 @@
     <a href="index3.html" class="brand-link">
         <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">SIM Management</span>
     </a>
 
     <!-- Sidebar -->
@@ -39,7 +39,7 @@
                 <li class="nav-item">
                     <a href="{{ route('article.index') }}"
                         class="nav-link {{ request()->is('article*') ? 'active' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
+                        <i class="nav-icon fas fa-book"></i>
                         <p>Article Blog</p>
                     </a>
                 </li>
@@ -58,6 +58,16 @@
                         </a>
                     </form>
                 </li>
+                @role('moderator')
+                <li class="nav-header">MANAGEMENT USERS</li>
+                <li class="nav-item">
+                    <a href="{{ route('users.index') }}"
+                        class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                        <i class="far fa-user nav-icon"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                @endrole
             </ul>
         </nav>
     </div>

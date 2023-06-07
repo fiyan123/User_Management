@@ -21,7 +21,7 @@ class ArticleController extends Controller
     public function create()
     {
         if (!auth()->user()->hasPermissionTo('create articles')) {
-            return redirect()->back()->with('error', 'Izin Tidak Diberikan!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');;
         }
         else {
             return redirect()->view('article.create');
@@ -32,7 +32,7 @@ class ArticleController extends Controller
     {
         // Pengecekan role dan izin
         if (!auth()->user()->hasPermissionTo('create articles')) {
-            return redirect()->back()->with('error', 'Izin Tidak Diberikan!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');;
         }
         else {
            $validated = $request->validate([
@@ -66,7 +66,7 @@ class ArticleController extends Controller
         // Pengecekan role dan izin
         if (!auth()->user()->hasPermissionTo('edit articles')) {
 
-            return redirect()->back()->with('error', 'Izin Tidak Diberikan!');
+            return redirect()->back()->with('error', 'Permissions Denied!');
         }
         else {
 
@@ -80,7 +80,7 @@ class ArticleController extends Controller
     {
         // Pengecekan role dan izin
        if (!auth()->user()->hasPermissionTo('edit articles')) {
-            return redirect()->back()->with('error', 'Izin Tidak Diberikan!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');;
         }
         else {
            $validated = $request->validate([
@@ -106,7 +106,7 @@ class ArticleController extends Controller
     {
         // Pengecekan role dan izin
         if (!auth()->user()->hasPermissionTo('delete articles')) {
-            return redirect()->back()->with('error', 'Izin Tidak Diberikan!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');;
         }
         else {
             $data = Article::findOrFail($id);
