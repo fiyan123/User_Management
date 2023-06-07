@@ -12,9 +12,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        $user = User::count();
         $permissions = Permission::all();
         $roles = Role::all();
-        return view('users.index', compact('users', 'permissions','roles'));
+        return view('users.index', compact('users', 'user' , 'permissions','roles'));
     }
 
     public function store(Request $request)
@@ -33,7 +34,7 @@ class UserController extends Controller
         $users->password = bcrypt($validated['password']);
         $users->save();
 
-        return redirect()->route('users.index')->with('success', 'Data berhasil ditambah!');
+        return redirect()->route('users.index')->with('success', 'Users berhasil ditambah!');
     }
 
 

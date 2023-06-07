@@ -35,7 +35,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-header">EXAMPLES</li>
+                <li class="nav-header">MAIN MENU</li>
                 <li class="nav-item">
                     <a href="{{ route('article.index') }}"
                         class="nav-link {{ request()->is('article*') ? 'active' : '' }}">
@@ -44,8 +44,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('profile') }}" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
+                    <a href="{{ route('profile.index') }}"
+                        class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
+                        <i class="fas fa-user nav-icon"></i>
                         <p>Profile</p>
                     </a>
                 </li>
@@ -53,7 +54,7 @@
                     <form id="logOut" action="/logout" method="POST">
                         @csrf
                         <a class="nav-link" id="logOut">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
                             <p>Keluar</p>
                         </a>
                     </form>
@@ -63,7 +64,7 @@
                 <li class="nav-item">
                     <a href="{{ route('users.index') }}"
                         class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
-                        <i class="far fa-user nav-icon"></i>
+                        <i class="fas fa-edit nav-icon"></i>
                         <p>Users</p>
                     </a>
                 </li>

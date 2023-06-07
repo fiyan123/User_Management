@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -14,7 +15,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile');
+        $data = Profile::all();
+
+        return view('profile.index', compact('data'));
     }
 
     /**
@@ -24,7 +27,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        return view('profile.create');
     }
 
     /**
@@ -35,7 +38,23 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validated = $request->validate([
+            'no_telepon' => 'required',
+            'edukasi'    => 'required',
+            'alamat'     => 'required',
+            'notes'      => 'required'
+        ]);
+
+        $data = new Profile();
+
+        $data->user_id    = Auth::user()->id;
+        $data->no_telepon = $request->no_telepon;
+        $data->edukasi    = $request->edukasi;
+        $data->alamat     = $request->alamat;
+        $data->notes      = $request->notes;
+        $data->save();
+
+        return redirect()->route('profile.index')->with('success', 'Profile berhasil dibuat!');
     }
 
     /**

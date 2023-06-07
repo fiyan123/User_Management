@@ -21,13 +21,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile')->middleware('auth');
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Profile
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/profile/create', [ProfileController::class, 'create'])->name('create');
+Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function () {

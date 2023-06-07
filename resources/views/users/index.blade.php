@@ -19,6 +19,7 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
@@ -62,8 +63,8 @@
             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
-                <span class="info-box-number">2,000</span>
+                <span class="info-box-text">Account Members</span>
+                <span class="info-box-number">{{ $user }}</span>
             </div>
         </div>
     </div>
@@ -79,18 +80,22 @@
                         @yield('title')
                     </th>
                     <th>
-                        <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
-                            data-target="#modal-default" style="float: right;">
-                            Tambah Users
-                        </button>
-                        <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
-                            data-target="#modal-default3" style="float: right;">
-                            Tambah Roles
-                        </button>
-                        <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
-                            data-target="#modal-default2" style="float: right;">
-                            Tambah Permissions
-                        </button>
+                        <div class="row">
+                            <div class="col" style="float: right;">
+                                <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
+                                    data-target="#modal-default" style="float: right;">
+                                    Tambah Users
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
+                                    data-target="#modal-default3" style="float: right;">
+                                    Tambah Roles
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
+                                    data-target="#modal-default2" style="float: right;">
+                                    Tambah Permissions
+                                </button>
+                            </div>
+                        </div>
                     </th>
                 </tr>
             </th>
@@ -152,7 +157,9 @@
 </section>
 
 @include('users.create')
+
 @include('users.create_permissions')
+
 @include('users.create_roles')
 
 @endsection
