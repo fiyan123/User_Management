@@ -3,6 +3,14 @@
 @section('content')
 
 
+<style>
+
+    .checkbox-container input[type="checkbox"] {
+        margin-right: 10px;
+        align-items: center;
+    }
+</style>
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -107,18 +115,17 @@
                         <td>{{ $user->email }}</td>
                         <td>
                             <form action="{{ route('usersRole.update', $user->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                @foreach ($roles as $role)
-                                <div>
-                                    <input type="checkbox" name="roles[]" value="{{ $role->id }}" {{
-                                        $user->hasRole($role) ?
-                                    'checked' : '' }}>
-                                    <label>{{ $role->name }}</label>
-                                </div>
-                                @endforeach
-                                <button type="submit" class="btn btn-sm btn-success mx-auto d-block mt-3">Save
-                                    changes</button>
+                                <form action="{{ route('usersPermission.update', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    @foreach ($roles as $role)
+                                        <div class="checkbox-container">
+                                            <input type="checkbox" name="roles[]" value="{{ $role->id }}" {{ $user->hasRole($role) ? 'checked' : '' }}>
+                                            <label>{{ $role->name }}</label>
+                                        </div>
+                                    @endforeach
+                                    <button type="submit" class="btn btn-sm btn-primary mx-auto d-block" id="btnSubmit">Simpan</button>
+                                </form>
                             </form>
                         </td>
                         <td>
@@ -126,14 +133,13 @@
                                 @csrf
                                 @method('PUT')
                                 @foreach ($permissions as $permission)
-                                <div>
-                                    <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{
-                                        $user->hasPermissionTo($permission) ? 'checked' : '' }}>
-                                    <label>{{ $permission->name }}</label>
-                                </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{
+                                            $user->hasPermissionTo($permission) ? 'checked' : '' }}>
+                                        <label>{{ $permission->name }}</label>
+                                    </div>
                                 @endforeach
-                                <button type="submit" class="btn btn-sm btn-success mx-auto d-block mt-3">Save
-                                    changes</button>
+                                <button type="submit" class="btn btn-sm btn-primary mx-auto d-block">Simpan</button>
                             </form>
                         </td>
                     </tr>
