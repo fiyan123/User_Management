@@ -25,13 +25,13 @@ class RoleSeeder extends Seeder
             'name' => 'author',
             'guard_name' => 'web',
         ]);
-        $role->givePermissionTo(['create articles']);
+        // $role->givePermissionTo(['create articles']);
 
         $role = Role::create([
             'name' => 'editor',
             'guard_name' => 'web',
         ]);
-        $role->givePermissionTo(['edit articles']);
+        // $role->givePermissionTo(['edit articles']);
 
         $role = Role::create([
             'name' => 'moderator',

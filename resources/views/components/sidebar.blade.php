@@ -50,15 +50,6 @@
                         <p>Profile</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <form id="logOut" action="/logout" method="POST">
-                        @csrf
-                        <a class="nav-link" id="logOut">
-                            <i class="fas fa-sign-out-alt nav-icon"></i>
-                            <p>Keluar</p>
-                        </a>
-                    </form>
-                </li>
                 @role('moderator')
                 <li class="nav-header">MANAGEMENT USERS</li>
                 <li class="nav-item">
@@ -68,7 +59,31 @@
                         <p>Users</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('role.index') }}"
+                        class="nav-link {{ request()->is('admin/roles*') ? 'active' : '' }}">
+                        <i class="fas fa-edit nav-icon"></i>
+                        <p>Roles</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('permission.index') }}"
+                        class="nav-link {{ request()->is('admin/permissions*') ? 'active' : '' }}">
+                        <i class="fas fa-edit nav-icon"></i>
+                        <p>Permissions</p>
+                    </a>
+                </li>
                 @endrole
+                <li class="nav-header">AKTIFITAS</li>
+                <li class="nav-item">
+                    <form id="logOut" action="/logout" method="POST">
+                        @csrf
+                        <a class="nav-link" id="logOut">
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
+                            <p>Keluar</p>
+                        </a>
+                    </form>
+                </li>
             </ul>
         </nav>
     </div>
@@ -80,13 +95,13 @@
     logOut.addEventListener('click', function() {
 
     Swal.fire({
-    title: 'Apa Anda Yakin?',
-    icon: 'question',
-    showCancelButton: true,
-    cancelButtonText: 'Batal',
-    confirmButtonColor: '#7066e0',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Keluar'
+        title: 'Apa Anda Yakin?',
+        icon: 'question',
+        showCancelButton: true,
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#7066e0',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Keluar'
     }).then((result) => {
     if (result.isConfirmed) {
         $('#logOut').submit()

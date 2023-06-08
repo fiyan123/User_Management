@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -43,18 +45,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::post('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
     Route::post('/article/destroy/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
 
-    // Users
+    // Role Permissions Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{user}/role', [UserController::class, 'updateRoleUsers'])->name('usersRole.update');
+    Route::put('/users/{user}/permissions', [UserController::class, 'updatePermissionUsers'])->name('usersPermission.update');
+
 
     // Permissions Users
-    Route::put('/users/{user}/permissions', [UserController::class, 'update'])->name('permissions.update');
-    Route::post('/permissions/store', [UserController::class, 'storePermission'])->name('permissions.store');
+    Route::get('/permissions', [PermissionsController::class, 'index'])->name('permission.index');
+    Route::post('/permissions/store', [PermissionsController::class, 'store'])->name('permission.store');
+    Route::get('/permissions/edit/{id}', [PermissionsController::class, 'edit'])->name('permission.edit');  
+    Route::put('/permissions/update/{id}', [PermissionsController::class, 'update'])->name('permission.update'); 
+    Route::delete('/permissions/{id}', [PermissionsController::class, 'destroy'])->name('permission.destroy');
 
     // Role Users
-    Route::post('/role/store', [UserController::class, 'storeRole'])->name('role.store');
-    Route::put('/users/{user}/role', [UserController::class, 'updateRole'])->name('role.update');
+    Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
+    Route::post('/roles/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('/roles/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');  
+    Route::put('/roles/update/{id}', [RoleController::class, 'update'])->name('role.update');  
+    Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
 });
 
 

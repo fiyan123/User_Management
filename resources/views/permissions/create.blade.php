@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-default2">
+<div class="modal fade" id="modal-permissions">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('permissions.store') }}">
+                <form method="POST" action="{{ route('permission.store') }}">
                     @csrf
                     <div class="form-group">
                         <label for="name">Nama Permission</label>

@@ -39,8 +39,8 @@
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-text">Permissions</span>
+                <span class="info-box-number">{{ $permission }}</span>
             </div>
         </div>
     </div>
@@ -53,8 +53,8 @@
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-text">Roles</span>
+                <span class="info-box-number">{{ $role }}</span>
             </div>
         </div>
     </div>
@@ -80,22 +80,10 @@
                         @yield('title')
                     </th>
                     <th>
-                        <div class="row">
-                            <div class="col" style="float: right;">
-                                <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
-                                    data-target="#modal-default" style="float: right;">
-                                    Tambah Users
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
-                                    data-target="#modal-default3" style="float: right;">
-                                    Tambah Roles
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
-                                    data-target="#modal-default2" style="float: right;">
-                                    Tambah Permissions
-                                </button>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal"
+                            data-target="#modal-default" style="float: right;">
+                            Tambah Data
+                        </button>
                     </th>
                 </tr>
             </th>
@@ -118,7 +106,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <form action="{{ route('role.update', $user->id) }}" method="POST">
+                            <form action="{{ route('usersRole.update', $user->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @foreach ($roles as $role)
@@ -134,7 +122,7 @@
                             </form>
                         </td>
                         <td>
-                            <form action="{{ route('permissions.update', $user->id) }}" method="POST">
+                            <form action="{{ route('usersPermission.update', $user->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 @foreach ($permissions as $permission)
@@ -157,9 +145,5 @@
 </section>
 
 @include('users.create')
-
-@include('users.create_permissions')
-
-@include('users.create_roles')
 
 @endsection

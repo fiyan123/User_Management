@@ -13,9 +13,14 @@ class UserController extends Controller
     {
         $users = User::all();
         $user = User::count();
+
         $permissions = Permission::all();
+        $permission = Permission::count();
+
         $roles = Role::all();
-        return view('users.index', compact('users', 'user' , 'permissions','roles'));
+        $role = Role::count();
+        
+        return view('users.index', compact('users', 'user' , 'permissions','roles','permission','role'));
     }
 
     public function store(Request $request)
@@ -37,50 +42,24 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Users berhasil ditambah!');
     }
 
-
-    // Create Permissions
-    public function storePermission(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:permissions',
-        ]);
-
-        Permission::create($validatedData);
-
-        return redirect()->route('users.index')->with('success', 'Permission Berhasil dibuat!');
-    }
-
-    // Update Permissions
-    public function update(Request $request, User $user)
+    // Update Permissions Users
+    public function updatePermissionUsers(Request $request, User $user)
     {
         $permissions = $request->input('permissions', []);
 
         $user->syncPermissions($permissions);
 
-        return redirect()->route('users.index')->with('success', 'Permissions Berhasil Diubah!');
+        return redirect()->route('users.index')->with('success', 'Permissions Users Berhasil Diubah!');
     }
 
-
-    // Create Role
-    public function storeRole(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:roles',
-        ]);
-
-        Role::create($validatedData);
-
-        return redirect()->route('users.index')->with('success', 'Role Berhasil dibuat!');
-    }
-
-    // Update Roles
-    public function updateRole(Request $request, User $user)
+    // Update Roles Users
+    public function updateRoleUsers(Request $request, User $user)
     {
         $roles = $request->input('roles', []);
 
         $user->syncRoles($roles);
 
-        return redirect()->route('users.index')->with('success', 'Role Berhasil Diubah!');
+        return redirect()->route('users.index')->with('success', 'Role Users Berhasil Diubah!');
     }
 }
 
