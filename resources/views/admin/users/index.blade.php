@@ -3,6 +3,13 @@
 @section('content')
 
 
+<style>
+    .checkbox-container input[type="checkbox"] {
+        margin-right: 10px;
+        align-items: center;
+    }
+</style>
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
