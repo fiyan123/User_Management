@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Table Roles Users')
+@section('title', 'Table Permissions Users')
 
 @section('content')
 
@@ -13,7 +13,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Roles</li>
+                    <li class="breadcrumb-item active">Permissions</li>
                 </ol>
             </div>
         </div>
@@ -81,7 +81,7 @@
                     </th>
                     <th>
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                            data-target="#modal-roles" style="float: right;">
+                            data-target="#modal-permissions" style="float: right;">
                             Tambah Data
                         </button>
                     </th>
@@ -93,17 +93,17 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Roles</th>
+                        <th>Nama Permissions</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($roles as $item)
+                    @foreach ($permissions as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->name }}</td>
                         <td>
-                            <a href="{{ route('role.edit', $item->id) }}" class="btn btn-success btn-sm me-1"
+                            <a href="{{ route('permission.edit', $item->id) }}" class="btn btn-success btn-sm me-1"
                                 title="Ubah Data">
                                 <dt class="the-icon"><span class="fa-fw select-all fas"></span></dt>
                             </a>
@@ -117,7 +117,7 @@
             </table>
         </div>
     </div>
-    @include('roles.create')
+    @include('admin.permissions.create')
 </section>
 
 
@@ -136,7 +136,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ route('role.destroy', '') }}" + "/" + id,
+                    url: "{{ route('permission.destroy', '') }}" + "/" + id,
                     type: 'post',
                     data: {
                         _method: 'DELETE',

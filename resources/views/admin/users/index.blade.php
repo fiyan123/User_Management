@@ -89,14 +89,14 @@
             </th>
         </div>
         <div class="card-body">
-            <table class="table table-bordered" id="example2">
+            <table class="table table-bordered" id="example1">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Nama User</th>
                         <th>Email</th>
-                        <th>Roles</th>
-                        <th>Permissions</th>
+                        <th>Role Permissions</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,34 +106,35 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <form action="{{ route('usersRole.update', $user->id) }}" method="POST">
+                            <form action="{{ route('usersRolePermission.update', $user->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
+
+                                <!-- Roles -->
                                 @foreach ($roles as $role)
                                 <div>
                                     <input type="checkbox" name="roles[]" value="{{ $role->id }}" {{
-                                        $user->hasRole($role) ?
-                                    'checked' : '' }}>
+                                        $user->hasRole($role) ? 'checked' : '' }} style="margin-right: 10px;">
                                     <label>{{ $role->name }}</label>
                                 </div>
                                 @endforeach
-                                <button type="submit" class="btn btn-sm btn-success mx-auto d-block mt-3">Save
-                                    changes</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="{{ route('usersPermission.update', $user->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
+
+                                <div style="margin-top: 10px;"></div>
+                                <!-- Jarak antara checkbox roles dan permissions -->
+
+                                <!-- Permissions -->
                                 @foreach ($permissions as $permission)
                                 <div>
                                     <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{
-                                        $user->hasPermissionTo($permission) ? 'checked' : '' }}>
+                                        $user->hasPermissionTo($permission)
+                                    ? 'checked' : '' }} style="margin-right: 10px;">
                                     <label>{{ $permission->name }}</label>
                                 </div>
                                 @endforeach
-                                <button type="submit" class="btn btn-sm btn-success mx-auto d-block mt-3">Save
-                                    changes</button>
+
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-sm btn-primary mx-auto d-block">Simpan</button>
                             </form>
                         </td>
                     </tr>
@@ -144,6 +145,6 @@
     </div>
 </section>
 
-@include('users.create')
+@include('admin.users.create')
 
 @endsection

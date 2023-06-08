@@ -99,7 +99,7 @@
         icon: 'question',
         showCancelButton: true,
         cancelButtonText: 'Batal',
-        confirmButtonColor: '#7066e0',
+        confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Keluar'
     }).then((result) => {

@@ -106,7 +106,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->judul }}</td>
                         <td>{{ $item->pembuat }}</td>
-                        <td>{{ $item->tanggal_dibuat }}</td>
+                        <td>{{ date("d-m-Y", strtotime($item->tanggal_dibuat)) }}</td>
                         <td>{{ $item->isi }}</td>
                         <td>
                             <form action="{{ route('article.destroy', $item->id) }}" method="POST">

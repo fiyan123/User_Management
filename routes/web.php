@@ -49,8 +49,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-    Route::put('/users/{user}/role', [UserController::class, 'updateRoleUsers'])->name('usersRole.update');
-    Route::put('/users/{user}/permissions', [UserController::class, 'updatePermissionUsers'])->name('usersPermission.update');
+    // Route::put('/users/{user}/role', [UserController::class, 'updateRoleUsers'])->name('usersRole.update');
+    // Route::put('/users/{user}/permissions', [UserController::class, 'updatePermissionUsers'])->name('usersPermission.update');
+    Route::put('/users/{user}/roles-permissions', [UserController::class,'updateRolesAndPermissions'])->name('usersRolePermission.update');
 
 
     // Permissions Users
@@ -60,6 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::put('/permissions/update/{id}', [PermissionsController::class, 'update'])->name('permission.update'); 
     Route::delete('/permissions/{id}', [PermissionsController::class, 'destroy'])->name('permission.destroy');
 
+    
     // Role Users
     Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
     Route::post('/roles/store', [RoleController::class, 'store'])->name('role.store');
@@ -75,15 +77,11 @@ Route::post('/article/store', [ArticleController::class, 'store'])->name('articl
 Route::get('/article/show/{id}',  [ArticleController::class, 'show'])->name('article.show');
 
 // Create Data
-Route::group(['middleware' => ['permission:create articles']], function () {
-    Route::get('/article/create', [ArticleController::class, 'create'])->name('create');
-});
+Route::get('/article/create', [ArticleController::class, 'create'])->name('create');
 
 // Edit Data
-Route::group(['middleware' => ['permission:edit articles']], function () {
-    Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
-    Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
-});
+Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
+Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
 
 // Hapus Data 
 Route::delete('/article/destroy/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');

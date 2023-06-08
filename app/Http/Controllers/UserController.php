@@ -20,7 +20,7 @@ class UserController extends Controller
         $roles = Role::all();
         $role = Role::count();
         
-        return view('users.index', compact('users', 'user' , 'permissions','roles','permission','role'));
+        return view('admin.users.index', compact('users', 'user' , 'permissions','roles','permission','role'));
     }
 
     public function store(Request $request)
@@ -42,24 +42,18 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Users berhasil ditambah!');
     }
 
-    // Update Permissions Users
-    public function updatePermissionUsers(Request $request, User $user)
+    public function updateRolesAndPermissions(Request $request, $user)
     {
-        $permissions = $request->input('permissions', []);
+        // Mengupdate peran pengguna
+        $user = User::findOrFail($user);
+        $user->roles()->sync($request->input('roles', []));
 
-        $user->syncPermissions($permissions);
+        // Mengupdate izin pengguna
+        $user->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('users.index')->with('success', 'Permissions Users Berhasil Diubah!');
+        // Redirect atau melakukan tindakan lain setelah berhasil mengupdate data
+        return redirect()->route('users.index')->with('success', 'Roles Dan Permissions Berhasil Diubah.');
     }
 
-    // Update Roles Users
-    public function updateRoleUsers(Request $request, User $user)
-    {
-        $roles = $request->input('roles', []);
-
-        $user->syncRoles($roles);
-
-        return redirect()->route('users.index')->with('success', 'Role Users Berhasil Diubah!');
-    }
 }
 

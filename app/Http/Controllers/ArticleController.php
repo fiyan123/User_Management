@@ -40,6 +40,7 @@ class ArticleController extends Controller
                 'isi'            => 'required',
                 'pembuat'        => 'required',
                 'tanggal_dibuat' => 'required',
+                'foto'           => 'required|image|max:2048',
             ]);
 
             $data = new Article();
@@ -48,6 +49,15 @@ class ArticleController extends Controller
             $data->isi              = $request->isi;
             $data->pembuat          = $request->pembuat;
             $data->tanggal_dibuat   = $request->tanggal_dibuat;
+
+            // image
+            if ($request->hasFile('foto')) {
+                $image = $request->file('foto');
+                $name = rand(1000, 9999) . $image->getClientOriginalName();
+                $image->move('images/article/', $name);
+
+                $data->foto = $name;
+            }
             $data->save();
 
             return redirect()->route('article.index')->with('success', 'Data Berhasil Ditambah');

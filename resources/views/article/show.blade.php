@@ -50,6 +50,16 @@
                 class="form-control @error('tanggal_dibuat') is-invalid @enderror" readonly>
         </div>
 
+        <div class="col-md-12 form-group p-2">
+            <label class="form-label">Foto Article</label>
+            @if (isset($data) && $data->foto)
+            <p>
+                <img src="{{ asset('images/article/' . $data->foto) }}" class="img-rounded img-responsive"
+                    style="width: 400px; height:300px;" alt="image">
+            </p>
+            @endif
+        </div>
+
         <center>
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <a href="{{ route('article.index') }}" class="btn btn-danger">Kembali</a>

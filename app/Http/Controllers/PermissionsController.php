@@ -12,7 +12,7 @@ class PermissionsController extends Controller
     {
         $permissions = Permission::all();
 
-        return view('permissions.index', compact('permissions'));
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     public function create()
@@ -40,7 +40,7 @@ class PermissionsController extends Controller
     {
         $permissions = Permission::find($id);
 
-        return view('permissions.edit', compact('permissions'));
+        return view('admin.permissions.edit', compact('permissions'));
     }
 
     public function update(Request $request, $id)

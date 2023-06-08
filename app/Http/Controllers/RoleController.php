@@ -11,7 +11,7 @@ class RoleController extends Controller
     {
         $roles = Role::all();
         
-        return view('roles.index', compact('roles'));
+        return view('admin.roles.index', compact('roles'));
     }
 
     public function create()
@@ -39,7 +39,7 @@ class RoleController extends Controller
     {
         $roles = Role::findOrFail($id);
 
-        return view('roles.edit', compact('roles'));
+        return view('admin.roles.edit', compact('roles'));
     }
 
     public function update(Request $request, $id)
