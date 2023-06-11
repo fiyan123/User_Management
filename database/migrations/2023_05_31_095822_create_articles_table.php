@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('isi');
+            $table->text('isi');
             $table->string('pembuat');
             $table->string('foto');
             $table->date('tanggal_dibuat');

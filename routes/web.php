@@ -19,11 +19,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -49,8 +47,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-    // Route::put('/users/{user}/role', [UserController::class, 'updateRoleUsers'])->name('usersRole.update');
-    // Route::put('/users/{user}/permissions', [UserController::class, 'updatePermissionUsers'])->name('usersPermission.update');
     Route::put('/users/{user}/roles-permissions', [UserController::class,'updateRolesAndPermissions'])->name('usersRolePermission.update');
 
 

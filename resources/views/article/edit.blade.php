@@ -71,6 +71,24 @@
                 </span>
                 @enderror
             </div>
+
+            <div class="col-md-12 form-group p-2">
+                <label class="form-label">Foto wisata</label>
+                @if (isset($data) && $data->foto)
+                <p>
+                    <img src="{{ asset('images/article/' . $data->foto) }}" class="img-rounded img-responsive"
+                        style="width: 200px; height:150px;" alt="">
+                </p>
+                @endif
+                <input type="file" class="form-control  @error('foto') is-invalid @enderror" name="foto"
+                    value="{{ $data->foto }}">
+                @error('foto')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+
             <center>
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                     <button type="submit" name="save" class="btn btn-primary">Simpan</button>

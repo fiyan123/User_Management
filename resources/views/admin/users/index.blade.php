@@ -102,7 +102,7 @@
                         <th>No</th>
                         <th>Nama User</th>
                         <th>Email</th>
-                        <th>Role Permissions</th>
+                        <th>Role Permissions Users</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -118,6 +118,7 @@
                                 @method('PUT')
 
                                 <!-- Roles -->
+                                <label>Roles : </label>
                                 @foreach ($roles as $role)
                                 <div>
                                     <input type="checkbox" name="roles[]" value="{{ $role->id }}" {{
@@ -126,10 +127,11 @@
                                 </div>
                                 @endforeach
 
-                                <div style="margin-top: 10px;"></div>
+                                <div style="margin-top: 15px;"></div>
                                 <!-- Jarak antara checkbox roles dan permissions -->
 
                                 <!-- Permissions -->
+                                <label>Permissions : </label>
                                 @foreach ($permissions as $permission)
                                 <div>
                                     <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{

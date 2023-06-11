@@ -96,7 +96,6 @@
                         <th>Judul</th>
                         <th>Nama Pembuat</th>
                         <th>Tanggal Dibuat</th>
-                        <th>Isi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -107,7 +106,6 @@
                         <td>{{ $item->judul }}</td>
                         <td>{{ $item->pembuat }}</td>
                         <td>{{ date("d-m-Y", strtotime($item->tanggal_dibuat)) }}</td>
-                        <td>{{ $item->isi }}</td>
                         <td>
                             <form action="{{ route('article.destroy', $item->id) }}" method="POST">
                                 @csrf

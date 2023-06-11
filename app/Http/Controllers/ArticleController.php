@@ -21,7 +21,7 @@ class ArticleController extends Controller
     public function create()
     {
         if (!auth()->user()->hasPermissionTo('create articles')) {
-            return redirect()->back()->with('error', 'Permissions Denied!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');
         }
         else {
             return redirect()->view('article.create');
@@ -32,7 +32,7 @@ class ArticleController extends Controller
     {
         // Pengecekan role dan izin
         if (!auth()->user()->hasPermissionTo('create articles')) {
-            return redirect()->back()->with('error', 'Permissions Denied!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');
         }
         else {
            $validated = $request->validate([
@@ -90,7 +90,7 @@ class ArticleController extends Controller
     {
         // Pengecekan role dan izin
        if (!auth()->user()->hasPermissionTo('edit articles')) {
-            return redirect()->back()->with('error', 'Permissions Denied!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');
         }
         else {
            $validated = $request->validate([
@@ -98,6 +98,7 @@ class ArticleController extends Controller
                 'isi'            => 'required',
                 'pembuat'        => 'required',
                 'tanggal_dibuat' => 'required',
+                'foto'           => 'image|max:2048',
             ]);
 
             $data = Article::findOrFail($id);
@@ -106,6 +107,14 @@ class ArticleController extends Controller
             $data->isi              = $request->isi;
             $data->pembuat          = $request->pembuat;
             $data->tanggal_dibuat   = $request->tanggal_dibuat;
+
+            if ($request->hasFile('foto')) {
+                $data->deleteImage(); //menghapus foto sebelum di update melalui method deleteImage di model
+                $image = $request->file('foto');
+                $name = rand(1000, 9999) . $image->getClientOriginalName();
+                $image->move('images/article/', $name);
+                $data->foto = $name;
+            }
             $data->save();
 
             return redirect()->route('article.index')->with('success', 'Data Berhasil Diedit');
@@ -116,14 +125,14 @@ class ArticleController extends Controller
     {
         // Pengecekan role dan izin
         if (!auth()->user()->hasPermissionTo('delete articles')) {
-            return redirect()->back()->with('error', 'Permissions Denied!');;
+            return redirect()->back()->with('error', 'Permissions Denied!');
         }
         else {
             $data = Article::findOrFail($id);
 
             $data->delete();
 
-            return redirect()->route('article.index')->with('success', 'Data Berhasil Dihapus');;
+            return redirect()->route('article.index')->with('success', 'Data Berhasil Dihapus');
         }
     }
 }
