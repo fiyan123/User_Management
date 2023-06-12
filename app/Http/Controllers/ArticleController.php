@@ -129,9 +129,8 @@ class ArticleController extends Controller
         }
         else {
             $data = Article::findOrFail($id);
-
+            $data->deleteImage();
             $data->delete();
-
             return redirect()->route('article.index')->with('success', 'Data Berhasil Dihapus');
         }
     }

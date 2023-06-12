@@ -57,7 +57,7 @@
                             <h2>Article New</h2>
                         </div>
                     </div>
-                    <div class="row row-pb-md">
+                    <div class="row row-pb-md" id="searchResults">
                         @foreach ( $data as $item )
                         <div class="col-lg-6 mb-4 text-center">
                             <div class="product-entry border">
