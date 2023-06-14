@@ -71,7 +71,7 @@
 
 <section class="section">
     <div class="card">
-        @include('layouts._flash')
+        @include('sweetalert::alert')
         <div class="card-header mb-3 border-bottom">
             <th>
                 <tr>

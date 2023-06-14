@@ -49,7 +49,7 @@
         <!-- /.card -->
 
         <!-- About Me Box -->
-        @include('layouts._flash')
+        @include('sweetalert::alert')
         <div class="container-fluid">
             <div class="card card-primary">
                 <div class="card-header">

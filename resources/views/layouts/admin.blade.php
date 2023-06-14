@@ -29,9 +29,10 @@
   <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
   <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
+
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     @include('components.navbar')
@@ -39,18 +40,14 @@
     @include('components.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
-    <br>
     <div class="content-wrapper">
-      <!-- /.content-header -->
-
-      <!-- Main content -->
-      <section class="content">
+      <div class="content-header">
         <div class="container-fluid">
           <div class="col-lg-12">
             @yield('content')
           </div>
         </div>
-      </section>
+      </div>
     </div>
 
     <aside class="control-sidebar control-sidebar-dark"></aside>
@@ -100,6 +97,7 @@
   <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+  {{-- <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script> --}}
 
   <script>
     $(function() {
