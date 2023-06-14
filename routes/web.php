@@ -48,6 +48,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
     Route::put('/users/{user}/roles-permissions', [UserController::class,'updateRolesAndPermissions'])->name('usersRolePermission.update');
+    Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
 
 
     // Permissions Users

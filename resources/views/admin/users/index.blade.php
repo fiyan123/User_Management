@@ -95,7 +95,7 @@
             </th>
         </div>
         <div class="card-body">
-            <table class="table table-bordered" id="example1">
+            <table class="table table-bordered" id="example2">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -121,7 +121,8 @@
                                 @foreach ($roles as $role)
                                 <div>
                                     <input type="checkbox" name="roles[]" value="{{ $role->id }}" {{
-                                        $user->hasRole($role) ? 'checked' : '' }} style="margin-right: 10px;">
+                                        $user->hasRole($role) ? 'checked' : '' }}
+                                    style="margin-right: 10px;">
                                     <label><span class="badge bg-primary">{{ $role->name }}</span></label>
                                 </div>
                                 @endforeach
@@ -134,16 +135,31 @@
                                 @foreach ($permissions as $permission)
                                 <div>
                                     <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{
-                                        $user->hasPermissionTo($permission)
-                                    ? 'checked' : '' }} style="margin-right: 10px;">
+                                        $user->hasPermissionTo($permission) ? 'checked' : '' }} style="margin-right:
+                                    10px;">
                                     <label><span class="badge bg-primary">{{ $permission->name }}</span></label>
                                 </div>
                                 @endforeach
 
+                                <div style="margin-top: 15px;"></div>
+                                <!-- Jarak antara form edit dan form delete -->
+
                         </td>
-                        <td>
-                            <button type="submit"
-                                class="btn btn-sm btn-primary mx-auto d-block border-0">Simpan</button>
+                        <td align="center">
+                            <button type="submit" class="btn btn-sm btn-primary mx-auto d-inline border-0"><i
+                                    class="fas fa-save"></i>&nbsp; Simpan</button>
+                            </form>
+
+                            <div style="margin-top: 15px;"></div>
+
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-sm btn-danger mx-auto d-inline border-0"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                    <i class="fas fa-trash"></i>&nbsp; Hapus
+                                </button>
                             </form>
                         </td>
                     </tr>

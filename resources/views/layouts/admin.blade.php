@@ -75,9 +75,9 @@
   <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
 
   <!-- AdminLTE for demo purposes -->
-  <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+  {{-- <script src="{{ asset('assets/dist/js/demo.js') }}"></script> --}}
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  {{-- <script src="{{ asset('assets/dist/js/pages/dashboard2.js') }}"></script> --}}
+  <script src="{{ asset('assets/dist/js/pages/dashboard2.js') }}"></script>
   <!-- SweetAlert2 -->
   <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
   <!-- Toastr -->

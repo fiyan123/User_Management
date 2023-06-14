@@ -55,5 +55,12 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Roles Dan Permissions Berhasil Diubah.');
     }
 
+    public function destroy($id)
+    {
+        $users = User::findOrFail($id);
+        $users->delete();
+        return redirect()->route('users.index')->with('success', 'Data Users Berhasil Dihapus');
+    }
+
 }
 
