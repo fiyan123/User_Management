@@ -37,7 +37,7 @@
                     <div class="mb-3">
                         <label class="form-label">Pembuat Article</label>
                         <input type="text" class="form-control  @error('pembuat') is-invalid @enderror" name="pembuat"
-                            value="{{ old('pembuat') }}" placeholder="nama pembuat">
+                            value="{{ Auth::user()->name }}" disabled>
 
                         @error('pembuat')
                         <span class="invalid-feedback" role="alert">

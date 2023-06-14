@@ -38,7 +38,6 @@ class ArticleController extends Controller
            $validated = $request->validate([
                 'judul'          => 'required|unique:articles',
                 'isi'            => 'required',
-                'pembuat'        => 'required',
                 'tanggal_dibuat' => 'required',
                 'foto'           => 'required|image|max:2048',
             ]);
@@ -47,7 +46,7 @@ class ArticleController extends Controller
 
             $data->judul            = $request->judul;
             $data->isi              = $request->isi;
-            $data->pembuat          = $request->pembuat;
+            $data->pembuat          = Auth::user()->name;
             $data->tanggal_dibuat   = $request->tanggal_dibuat;
 
             // image

@@ -77,7 +77,7 @@
   <!-- AdminLTE for demo purposes -->
   <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{{ asset('assets/dist/js/pages/dashboard2.js') }}"></script>
+  {{-- <script src="{{ asset('assets/dist/js/pages/dashboard2.js') }}"></script> --}}
   <!-- SweetAlert2 -->
   <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
   <!-- Toastr -->
@@ -97,7 +97,6 @@
   <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
-  {{-- <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script> --}}
 
   <script>
     $(function() {

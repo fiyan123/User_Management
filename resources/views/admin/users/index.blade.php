@@ -122,7 +122,7 @@
                                 <div>
                                     <input type="checkbox" name="roles[]" value="{{ $role->id }}" {{
                                         $user->hasRole($role) ? 'checked' : '' }} style="margin-right: 10px;">
-                                    <label>{{ $role->name }}</label>
+                                    <label><span class="badge bg-primary">{{ $role->name }}</span></label>
                                 </div>
                                 @endforeach
 
@@ -136,7 +136,7 @@
                                     <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{
                                         $user->hasPermissionTo($permission)
                                     ? 'checked' : '' }} style="margin-right: 10px;">
-                                    <label>{{ $permission->name }}</label>
+                                    <label><span class="badge bg-primary">{{ $permission->name }}</span></label>
                                 </div>
                                 @endforeach
 
