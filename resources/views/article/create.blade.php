@@ -24,8 +24,8 @@
 
                     <div class="mb-3">
                         <label class="form-label">Isi Article</label>
-                        <textarea name="isi" class="form-control  @error('isi') is-invalid @enderror" id="" cols="30"
-                            rows="10" value="{{ old('isi') }}" placeholder="isi article"></textarea>
+                        <textarea name="isi" class="form-control  @error('isi') is-invalid @enderror" id="" cols=""
+                            rows="" value="{{ old('isi') }}" placeholder="isi article"></textarea>
 
                         @error('isi')
                         <span class=" invalid-feedback" role="alert">
@@ -102,5 +102,5 @@
             imgPreview.src = oFREvent.target.result;
         }
     }
-
+// password
 </script>

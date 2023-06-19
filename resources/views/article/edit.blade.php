@@ -53,7 +53,7 @@
             <div class="col-md-12 form-group p-2">
                 <label for="">Pembuat</label>
                 <input type="text" name="pembuat" value="{{ old('pembuat', $data->pembuat) }}"
-                    class="form-control @error('pembuat') is-invalid @enderror" required>
+                    class="form-control @error('pembuat') is-invalid @enderror" disabled>
                 @error('pembuat')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

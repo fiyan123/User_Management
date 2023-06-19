@@ -86,7 +86,7 @@
             </th>
         </div>
         <div class="card-body">
-            <table class="table table-bordered" id="example2">
+            <table class="table table-bordered" id="dataTable">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -97,39 +97,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->judul }}</td>
-                        <td>{{ $item->pembuat }}</td>
-                        <td>{{ date("d-m-Y", strtotime($item->tanggal_dibuat)) }}</td>
-                        <td>
-                            <form action="{{ route('article.destroy', $item->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <a href="{{ route('article.edit', $item->id) }}" class="btn btn-success btn-sm me-1"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Ubah Data">
-                                    <dt class="the-icon"><span class="fa-fw select-all fas"></span></dt>
-                                </a>
-                                <a href="{{ route('article.show', $item->id) }}" class="btn btn-info btn-sm me-1"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data">
-                                    <dt class="the-icon"><span class="fa-fw select-all fas"></span></dt>
-                                </a>
-                                <button type="submit" class="btn btn-danger btn-sm me-1"
-                                    onclick="return confirm('Hapus Data Ini?')" data-bs-placement="top"
-                                    title="Hapus Data">
-                                    <i class='fas fa-trash'></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                   
                 </tbody>
             </table>
         </div>
     </div>
 
     @include('article.create')
-
+    @include('article.script')
 </section>
 @endsection

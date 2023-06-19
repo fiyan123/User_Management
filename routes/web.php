@@ -41,7 +41,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::get('/article/show/{id}',  [ArticleController::class, 'show'])->name('article.show');
     Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');    
     Route::post('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
-    Route::post('/article/destroy/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
 
     // Role Permissions Users
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -81,8 +80,8 @@ Route::get('/article/create', [ArticleController::class, 'create'])->name('creat
 Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
 Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
 
-// Hapus Data 
-Route::delete('/article/destroy/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
+Route::post('destroy', [ArticleController::class, 'destroy'])->name('article.delete');
+
 
 
 
