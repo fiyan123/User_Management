@@ -87,83 +87,24 @@
                 </tr>
             </th>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered" id="example2">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Roles</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($roles as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>
-                            <a href="{{ route('role.edit', $item->id) }}" class="btn btn-success btn-sm me-1"
-                                title="Ubah Data">
-                                <dt class="the-icon"><span class="fa-fw select-all fas"></span></dt>
-                            </a>
-                            <button class="hapus btn btn-danger btn-sm me-1" name="hapus" id="{{ $item->id }}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="container">
+            <div class="card-body">
+                <table class="table table-bordered" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Roles</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     @include('admin.roles.create')
+    @include('admin.roles.script')
 </section>
-
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).on('click', '.hapus', function () {
-        let id = $(this).attr('id');
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'Batal',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus data!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "{{ route('role.destroy', '') }}" + "/" + id,
-                    type: 'post',
-                    data: {
-                        _method: 'DELETE',
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(res, status){
-                        if (status === 'success') {
-                            setTimeout(() => {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Data Berhasil Dihapus',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then((res) => {
-                                    location.reload(); // Memuat ulang halaman
-                                });
-                            }, 500);
-                        }
-                    },
-                    error: function(xhr){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Izin Tidak Diberikan!',
-                        });
-                    }
-                });
-            }
-        });
-    });
-</script>
 @endsection

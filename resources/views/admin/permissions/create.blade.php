@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label for="name">Nama Permission</label>
                         <input type="text" name="name" id="name"
-                            class="form-control @error('name') is-invalid @enderror" required>
+                            class="form-control @error('name') is-invalid @enderror">
 
                         @error('name')
                         <span class="invalid-feedback" role="alert">

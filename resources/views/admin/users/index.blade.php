@@ -146,8 +146,8 @@
 
                         </td>
                         <td align="center">
-                            <button type="submit" class="btn btn-sm btn-primary mx-auto d-inline border-0"><i
-                                    class="fas fa-save"></i>&nbsp; Simpan</button>
+                            <button type="submit" class="btn btn-primary mx-auto d-inline border-0"><i
+                                    class="fas fa-save"></i></button>
                             </form>
 
                             <div style="margin-top: 15px;"></div>
@@ -156,9 +156,9 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-sm btn-danger mx-auto d-inline border-0"
+                                <button type="submit" class="btn btn-danger mx-auto d-inline border-0"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                    <i class="fas fa-trash"></i>&nbsp; Hapus
+                                    <i class="fas fa-trash"></i> 
                                 </button>
                             </form>
                         </td>

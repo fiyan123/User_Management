@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data = Profile::all();
@@ -20,30 +16,32 @@ class ProfileController extends Controller
         return view('profile.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('profile.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-         $validated = $request->validate([
+        $validated = [
             'no_telepon' => 'required',
             'edukasi'    => 'required',
             'alamat'     => 'required',
             'notes'      => 'required'
-        ]);
+        ];
+
+        $text = [
+            'no_telepon.required'     => 'no telepon tidak boleh kosong,',
+            'edukasi.required'        => 'pendidikan tidak boleh kosong,',
+            'alamat.required'         => 'alamat tidak boleh kosong,',
+            'notes.required'          => 'note tidak boleh kosong,',
+        ];
+
+        $validasi = Validator::make($request->all(), $validated, $text);
+
+        if ($validasi->fails()) {
+            return redirect()->back()->withErrors($validasi)->withInput();
+        }
 
         $data = new Profile();
 
@@ -57,46 +55,38 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with('success', 'Profile berhasil dibuat!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
     public function show(Profile $profile)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
+    public function edit($id)
     {
-        //
+        $data = Profile::find($id);
+
+        return view('profile.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Profile $profile)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'no_telepon' => 'required',
+            'edukasi'    => 'required',
+            'alamat'     => 'required',
+            'notes'      => 'required'
+        ]);
+
+        $data = Profile::findOrFail($id);
+
+        $data->no_telepon = $request->no_telepon;
+        $data->edukasi    = $request->edukasi;
+        $data->alamat     = $request->alamat;
+        $data->notes      = $request->notes;
+        $data->save();
+
+        return redirect()->route('profile.index')->with('success', 'Profile Berhasil Diedit');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Profile $profile)
     {
         //

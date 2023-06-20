@@ -4,15 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Yajra\DataTables\Facades\DataTables;
 
 class PermissionsController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::all();
+        $data = Permission::all(); 
+    
+        if ($request->ajax()) {
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    
+                $button = "<div class='d-flex'>";
+                $button .= "<a href='" . route('permission.edit', ['id' => $data->id]) . "' class='btn btn-outline-success btn-sm me-1'><i class='fas fa-edit nav-icon'></i></a>";
+                $button .= "<button id='".$data->id."' name='hapus' class='hapus btn btn-outline-danger btn-sm me-1'><i class='fas fa-trash'></i></button>";
+                $button .= "</div>";
+            
+                return $button;
+            })
+                
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.permissions.index');
 
-        return view('admin.permissions.index', compact('permissions'));
     }
 
     public function create()
@@ -22,11 +40,13 @@ class PermissionsController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'name' => 'required|unique:permissions',
+        ], [
+            'name.required' => 'Nama permissions tidak boleh kosong'
         ]);
-
-        Permission::create($validatedData);
+        
+        Permission::create($validated);
 
         return redirect()->route('permission.index')->with('success', 'Permission Berhasil dibuat!');
     }

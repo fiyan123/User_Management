@@ -29,6 +29,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/create', [ProfileController::class, 'create'])->name('create');
 Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
+Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function () {
@@ -49,8 +51,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::put('/users/{user}/roles-permissions', [UserController::class,'updateRolesAndPermissions'])->name('usersRolePermission.update');
     Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
-
-
     // Permissions Users
     Route::get('/permissions', [PermissionsController::class, 'index'])->name('permission.index');
     Route::post('/permissions/store', [PermissionsController::class, 'store'])->name('permission.store');
@@ -58,7 +58,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::put('/permissions/update/{id}', [PermissionsController::class, 'update'])->name('permission.update'); 
     Route::delete('/permissions/{id}', [PermissionsController::class, 'destroy'])->name('permission.destroy');
 
-    
     // Role Users
     Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
     Route::post('/roles/store', [RoleController::class, 'store'])->name('role.store');

@@ -3,15 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
+use Yajra\DataTables\Facades\DataTables;
 
 class RoleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::all();
-        
-        return view('admin.roles.index', compact('roles'));
+       $data = Role::all(); 
+    
+        if ($request->ajax()) {
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    
+                $button = "<div class='d-flex'>";
+                $button .= "<a href='" . route('role.edit', ['id' => $data->id]) . "' class='btn btn-outline-success btn-sm me-1'><i class='fas fa-edit nav-icon'></i></a>";
+                $button .= "<button id='".$data->id."' name='hapus' class='hapus btn btn-outline-danger btn-sm me-1'><i class='fas fa-trash'></i></button>";
+                $button .= "</div>";
+            
+                return $button;
+            })
+                
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.roles.index');
     }
 
     public function create()
@@ -20,14 +38,16 @@ class RoleController extends Controller
     }
    
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:roles',
+    {   
+        $validated = $request->validate([
+            'name' => 'required|unique:roles'
+        ], [
+            'name.required' => 'Nama role tidak boleh kosong'
         ]);
-
-        Role::create($validatedData);
-
-        return redirect()->route('role.index')->with('success', 'Role Berhasil dibuat!');
+        
+        Role::create($validated);
+        
+        return redirect()->route('role.index')->with('success', 'Role berhasil dibuat!');        
     }
 
     public function show($id)

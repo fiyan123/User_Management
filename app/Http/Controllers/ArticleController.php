@@ -15,7 +15,7 @@ class ArticleController extends Controller
 {
     public function index(Request $request)
     {
-        $data = Article::orderBy('id','DESC')->get();
+        $data = Article::orderBy('id','DESC')->get(); 
     
         if ($request->ajax()) {
             return DataTables::of($data)
@@ -23,7 +23,7 @@ class ArticleController extends Controller
                     
                 $button = "<div class='d-flex'>";
                 $button .= "<a href='".route('article.show', ['id' => $data->id])."'> <span class='btn btn-outline-warning btn-sm me-1'><i class='fa fa-eye'></i></span></a>";
-                $button .= "<a href='" . route('article.edit', ['id' => $data->id]) . "' class='btn btn-outline-success btn-sm me-1'><i class='fas fa-pencil-alt'></i></a>";
+                $button .= "<a href='" . route('article.edit', ['id' => $data->id]) . "' class='btn btn-outline-success btn-sm me-1'><i class='fas fa-edit nav-icon'></i></a>";
                 $button .= "<button id='".$data->id."' name='hapus' class='hapus btn btn-outline-danger btn-sm me-1'><i class='fas fa-trash'></i></button>";
                 $button .= "</div>";
             
@@ -74,7 +74,6 @@ class ArticleController extends Controller
             if ($validasi->fails()) {
                 return redirect()->back()->withErrors($validasi)->withInput();
             }
-
 
             $data = new Article();
 
@@ -129,7 +128,6 @@ class ArticleController extends Controller
            $validated = $request->validate([
                 'judul'          => 'required',
                 'isi'            => 'required',
-                // 'pembuat'        => 'required',
                 'tanggal_dibuat' => 'required',
                 'foto'           => 'image|max:2048',
             ]);
@@ -138,7 +136,6 @@ class ArticleController extends Controller
 
             $data->judul            = $request->judul;
             $data->isi              = $request->isi;
-            // $data->pembuat          = $request->pembuat;
             $data->tanggal_dibuat   = $request->tanggal_dibuat;
 
             if ($request->hasFile('foto')) {
@@ -163,6 +160,7 @@ class ArticleController extends Controller
 
         if ($user->hasPermissionTo('delete articles')) {
             $data->delete();
+            $data->deleteImage();
             return response()->json([
                 'success' => true,
                 'message' => 'Data berhasil dihapus.'

@@ -44,9 +44,7 @@
                     </li>
                 </ul>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
 
         <!-- About Me Box -->
         @include('sweetalert::alert')
@@ -54,41 +52,52 @@
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">About Me</h3>
-                    <button type="button" id="addButton" class="btn btn-sm btn-dark" data-toggle="modal"
-                        data-target="#modal-default" style="float: right;">
-                        Tambah Data
-                    </button>
+
+                    {{-- Button disable ketika sudah ada data --}}
+                    @php
+                        $item = $data->firstWhere('user_id', Auth::user()->id);
+                    @endphp
+                    
+                    @if ($item)
+                        <a href="{{ route('profile.edit', $item->id) }}" class="btn btn-sm btn-danger mx-2" style="float: right;">Ubah Data</a>
+                        <button type="button" id="addButton" class="btn btn-sm btn-dark" data-toggle="modal"
+                            data-target="#modal-default" style="float: right;" disabled>
+                            Tambah Data
+                        </button>
+                    @else
+                        <button type="button" id="addButton" class="btn btn-sm btn-dark" data-toggle="modal"
+                            data-target="#modal-default" style="float: right;">
+                            Tambah Data
+                        </button>
+                    @endif
                 </div>
-                <!-- /.card-header -->
+
                 <div class="card-body">
                     @foreach ($data as $item)
-                    @if ($item->user_id == Auth::user()->id) {{-- Menampilkan data yang dibuat oleh pengguna saat ini
-                    --}}
-                    <strong><i class="fas fa-book mr-1"></i> Education</strong>
-                    <p class="text-muted">
-                        {{ $item->edukasi }}
-                    </p>
-                    <hr>
+                    @if ($item->user_id == Auth::user()->id) {{-- Menampilkan data yang dibuat oleh pengguna saat ini --}}
+                        <strong><i class="fas fa-book mr-1"></i> Education</strong>
+                        <p class="text-muted">
+                            {{ $item->edukasi }}
+                        </p>
+                        <hr>
 
-                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-                    <p class="text-muted">{{ $item->alamat }}</p>
-                    <hr>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                        <p class="text-muted">{{ $item->alamat }}</p>
+                        <hr>
 
-                    <strong><i class="fas fa-pencil-alt mr-1"></i> Phone</strong>
-                    <p class="text-muted">
-                        {{ $item->no_telepon }}
-                    </p>
-                    <hr>
+                        <strong><i class="fas fa-pencil-alt mr-1"></i> Phone</strong>
+                        <p class="text-muted">
+                            {{ $item->no_telepon }}
+                        </p>
+                        <hr>
 
-                    <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-                    <p class="text-muted">{{ $item->notes }}</p>
+                        <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+                        <p class="text-muted">{{ $item->notes }}</p>
                     @endif
                     @endforeach
                 </div>
-                <!-- /.card-body -->
             </div>
         </div>
-        <!-- /.card -->
     </div>
 </div>
 @include('profile.create')
