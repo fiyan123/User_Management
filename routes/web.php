@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
     Route::get('/dashboard', function() {
        return view('dashboard');
     })->name('dashboard');
+    Route::get('/article/filter', [ArticleController::class, 'getFilteredData'])->name('article.getFilteredData');
     Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
     Route::get('/article/create', [ArticleController::class, 'create'])->name('create');
     Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store'); 
@@ -68,7 +69,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:moderator']], function
 
 
 // Article
+Route::get('/article/filter', [ArticleController::class, 'getFilteredData'])->name('article.getFilteredData');
 Route::get('/article', [ArticleController::class, 'index'])->name('article.index')->middleware('auth');
+Route::get('/article/filter', [ArticleController::class, 'filter'])->name('article.filter');
 Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store'); 
 Route::get('/article/show/{id}',  [ArticleController::class, 'show'])->name('article.show');
 

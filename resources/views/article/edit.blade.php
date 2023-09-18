@@ -11,7 +11,7 @@
 </div>
 
 <div class="card">
-    @include('layouts._flash')
+    @include('sweetalert::alert')
     <div class="card-header mb-3 border-bottom">
         <th>
             <tr>
@@ -40,11 +40,12 @@
             </div>
 
             <div class="col-md-12 form-group p-2">
-                <label for="">Isi</label>
-                <input type="text" name="isi" value="{{ old('isi', $data->isi) }}"
-                    class="form-control @error('isi') is-invalid @enderror" required>
+                <label class="form-label">Isi Article</label>
+                <textarea name="isi" class="form-control  @error('isi') is-invalid @enderror" id="" cols=""
+                    rows="" placeholder="isi article">{{ old('isi', $data->isi) }}</textarea>
+
                 @error('isi')
-                <span class="invalid-feedback" role="alert">
+                <span class=" invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
@@ -91,7 +92,7 @@
 
             <center>
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <button type="submit" name="save" class="btn btn-primary">Simpan</button>
+                    <button type="submit" name="save" class="btn btn-primary">Simpan</button>&nbsp;
                     <a href="{{ route('article.index') }}" class="btn btn-danger">Kembali</a>
                 </div>
             </center>

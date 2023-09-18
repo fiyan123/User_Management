@@ -85,6 +85,27 @@
                 </tr>
             </th>
         </div>
+        <div class="row col-md-12">
+            <div class="col">
+                <form action="{{ route('article.getFilteredData') }}">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <span>Tanggal Awal</span>
+                            <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control">
+                        </div>
+                        <div class="col-lg-4">
+                            <span>Tanggal Akhir</span>
+                            <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control">
+                        </div>
+                        <div class="col-lg-4">
+                            <button type="submit" id="filterButton" class="btn btn-primary mt-4">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card-body">
             <table class="table table-bordered" id="dataTable">
                 <thead>
@@ -97,7 +118,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
+
                 </tbody>
             </table>
         </div>

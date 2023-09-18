@@ -37,6 +37,18 @@ class ArticleController extends Controller
         return view('article.index');
     }
 
+    public function filter(Request $request)
+    {
+        $tanggal_awal = $request->tanggal_awal;
+        $tanggal_akhir = $request->tanggal_akhir;
+
+        $data = Article::whereDate('created_at', '>=', $tanggal_awal)
+            ->whereDate('created_at', '<=', $tanggal_akhir)
+            ->get();
+
+        return view('article.index', compact('data'));
+    }
+
     public function create()
     {
         if (!auth()->user()->hasPermissionTo('create articles')) {
@@ -172,6 +184,16 @@ class ArticleController extends Controller
                 'message' => 'Permission denied.'
             ], 403);
         }
+    }
+
+    public function getFilteredData(Request $request)
+    {
+        $tanggalAwal = $request->input('tanggal_awal');
+        $tanggalAkhir = $request->input('tanggal_akhir');
+
+        $articles = Article::whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])->get();
+
+        return response()->json($articles);
     }
 }
 
